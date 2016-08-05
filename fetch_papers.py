@@ -63,26 +63,26 @@ if __name__ == "__main__":
 
   # misc hardcoded variables
   base_url = 'http://export.arxiv.org/api/query?' # base api query url
-  print 'Searching arXiv for %s' % (args.search_query, )
+  print('Searching arXiv for %s' % (args.search_query, ))
 
   # lets load the existing database to memory
   try:
     db = pickle.load(open(args.db_path, 'rb'))
-  except Exception, e:
-    print 'error loading existing database:'
-    print e
-    print 'starting from an empty database'
+  except Exception as e:
+    print('error loading existing database:')
+    print(e)
+    print('starting from an empty database')
     db = {}
 
   # -----------------------------------------------------------------------------
   # main loop where we fetch the new results
-  print 'database has %d entries at start' % (len(db), )
+  print('database has %d entries at start' % (len(db), ))
   num_added_total = 0
   for i in range(args.start_index, args.max_index, args.results_per_iteration):
 
-    print "Results %i - %i" % (i,i+args.results_per_iteration)
-    query = 'search_query=%s&sortBy=lastUpdatedDate&start=%i&max_results=%i' % (args.search_query,
-                                                         i, args.results_per_iteration)
+    print("Results %i - %i" % (i,i+args.results_per_iteration))
+    query =('search_query=%s&sortBy=lastUpdatedDate&start=%i&max_results=%i' % (args.search_query,
+                                                         i, args.results_per_iteration))
     response = urllib.urlopen(base_url+query).read()
     parse = feedparser.parse(response)
     num_added = 0
@@ -99,21 +99,21 @@ if __name__ == "__main__":
       # add to our database if we didn't have it before, or if this is a new version
       if not rawid in db or j['_version'] > db[rawid]['_version']:
         db[rawid] = j
-        print 'updated %s added %s' % (j['updated'].encode('utf-8'), j['title'].encode('utf-8'))
+        print('updated %s added %s' % (j['updated'].encode('utf-8'), j['title'].encode('utf-8')))
         num_added += 1
       else:
         num_skipped += 1
 
     # print some information
-    print 'Added %d papers, already had %d.' % (num_added, num_skipped)
+    print('Added %d papers, already had %d.' % (num_added, num_skipped))
 
     if len(parse.entries) == 0:
-      print 'Received no results from arxiv. Rate limiting? Exiting. Restart later maybe.'
-      print response
+      print('Received no results from arxiv. Rate limiting? Exiting. Restart later maybe.')
+      print(response)
       break
 
     if num_added == 0 and args.break_on_no_added == 1:
-      print 'No new papers were added. Assuming no new papers exist. Exiting.'
+      print('No new papers were added. Assuming no new papers exist. Exiting.')
       break
 
     print 'Sleeping for %i seconds' % (args.wait_time , )
