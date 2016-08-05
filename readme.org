@@ -1,0 +1,17 @@
+* Astroact - Web interface for keeping up to date on ADS (astrophysics data system) - http://astroact.org
+Forked from the wonderful [[https://github.com/karpathy/arxiv-sanity-preserver][arxiv-sanity-preserver]], astroact seeks to accomplish the same goal as arxiv-sanity-preserver: find papers you actually care about, but in astrophysics. 
+
+
+*** Differences from [[https://github.com/karpathy/arxiv-sanity-preserver][arxiv-sanity-preserver]]:
+
+*** Code Layout:
+
+*** Dependencies:
+
+*** Processing pipeline:
+
+*** Pushing to production:
+
+*** Workflow:
+
+*** References:

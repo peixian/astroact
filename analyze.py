@@ -34,12 +34,12 @@ for pid,j in db.iteritems():
       print 'skipped %d/%d (%s) with %d chars: suspicious!' % (n, len(db), idvv, len(txt))
 
 # compute tfidf vectors with scikits
-v = TfidfVectorizer(input='content', 
-        encoding='utf-8', decode_error='replace', strip_accents='unicode', 
-        lowercase=True, analyzer='word', stop_words='english', 
-        token_pattern=r'(?u)\b[a-zA-Z_][a-zA-Z0-9_]+\b',
-        ngram_range=(1, 2), max_features = 20000, 
-        norm='l2', use_idf=True, smooth_idf=True, sublinear_tf=False)
+v = TfidfVectorizer(input='content',
+                    encoding='utf-8', decode_error='replace', strip_accents='unicode',
+                    lowercase=True, analyzer='word', stop_words='english',
+                    token_pattern=r'(?u)\b[a-zA-Z_][a-zA-Z0-9_]+\b',
+                    ngram_range=(1, 2), max_features = 20000,
+                    norm='l2', use_idf=True, smooth_idf=True, sublinear_tf=False)
 
 X = v.fit_transform(txts)
 print v.vocabulary_
