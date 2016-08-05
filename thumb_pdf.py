@@ -19,16 +19,16 @@ for i,p in enumerate(pdfs):
   outpath = os.path.join('static', 'thumbs', p + '.jpg')
 
   if os.path.isfile(outpath): 
-    print 'skipping %s, exists.' % (fullpath, )
+    print('skipping %s, exists.' % (fullpath, ))
     continue
 
-  print "%d/%d processing %s" % (i, len(pdfs), p)
+  print("%d/%d processing %s" % (i, len(pdfs), p))
 
   # take first 8 pages of the pdf ([0-7]), since 9th page are references
   # tile them horizontally, use JPEG compression 80, trim the borders for each image
   #cmd = "montage %s[0-7] -mode Concatenate -tile x1 -quality 80 -resize x230 -trim %s" % (fullpath, "thumbs/" + f + ".jpg")
   #print "EXEC: " + cmd
-  
+
   # nvm, below using a roundabout alternative that is worse and requires temporary files, yuck!
   # but i found that it succeeds more often. I can't remember wha thappened anymore but I remember
   # that the version above, while more elegant, had some problem with it on some pdfs. I think.
@@ -64,10 +64,10 @@ for i,p in enumerate(pdfs):
   if not os.path.isfile('tmp/test-0.png'):
     # failed to render pdf, replace with missing image
     os.system('cp %s %s' % ('static/thumbs/missing.jpg', outpath))
-    print 'could not render pdf, creating a missing image placeholder'
+    print('could not render pdf, creating a missing image placeholder')
   else:
     cmd = "montage -mode concatenate -quality 80 -tile x1 tmp/test-*.png %s" % (outpath, )
-    print cmd
+    print(cmd)
     os.system(cmd)
 
   time.sleep(0.01) # silly way for allowing for ctrl+c termination

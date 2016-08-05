@@ -5,7 +5,7 @@ using the "pdftotext" command. If a pdf cannot be converted, this
 script will not produce the output file.
 """
 
-import cPickle as pickle
+import pickle
 import urllib2
 import shutil
 import time
@@ -23,7 +23,7 @@ for i,f in enumerate(files, start=1):
   if not txt_basename in have:
     cmd = "pdftotext %s %s" % (pdf_path, txt_path)
     os.system(cmd)
-    print '%d/%d %s' % (i, len(files), cmd)
+    print('%d/%d %s' % (i, len(files), cmd))
 
     # check output was made
     if not os.path.isfile(txt_path):
@@ -32,4 +32,4 @@ for i,f in enumerate(files, start=1):
 
     time.sleep(0.02) # silly way for allowing for ctrl+c termination
   else:
-    print 'skipping %s, already exists.' % (pdf_path, )
+    print('skipping %s, already exists.' % (pdf_path, ))

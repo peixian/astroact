@@ -8,7 +8,7 @@ import urllib
 import time
 import feedparser
 import os
-import cPickle as pickle
+import pickle
 import argparse
 import random
 import utils
@@ -36,7 +36,7 @@ def encode_feedparser_dict(d):
     return d
 
 def parse_arxiv_url(url):
-  """ 
+  """
   examples is http://arxiv.org/abs/1512.08756v2
   we want to extract the raw id and the version
   """
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     print("Results %i - %i" % (i,i+args.results_per_iteration))
     query =('search_query=%s&sortBy=lastUpdatedDate&start=%i&max_results=%i' % (args.search_query,
                                                          i, args.results_per_iteration))
-    response = urllib.urlopen(base_url+query).read()
+    response = urllib.request.urlopen(base_url+query).read()
     parse = feedparser.parse(response)
     num_added = 0
     num_skipped = 0
@@ -116,9 +116,8 @@ if __name__ == "__main__":
       print('No new papers were added. Assuming no new papers exist. Exiting.')
       break
 
-    print 'Sleeping for %i seconds' % (args.wait_time , )
+    print('Sleeping for %i seconds' % (args.wait_time , ))
     time.sleep(args.wait_time + random.uniform(0, 3))
-
   # save the database before we quit
-  print 'saving database with %d papers to %s' % (len(db), args.db_path)
+  print('saving database with %d papers to %s' % (len(db), args.db_path))
   utils.safe_pickle_dump(db, args.db_path)
