@@ -1,5 +1,5 @@
-import cPickle as pickle
-import urllib2
+import pickle
+import urllib.request
 import shutil
 import time
 import os
@@ -12,7 +12,7 @@ numok = 0
 numtot = 0
 db = pickle.load(open('db.p', 'rb'))
 have = set(os.listdir('pdf')) # get list of all pdfs we already have
-for pid,j in db.iteritems():
+for pid,j in db.items():
 
   pdfs = [x['href'] for x in j['links'] if x['type'] == 'application/pdf']
   assert len(pdfs) == 1
@@ -25,7 +25,7 @@ for pid,j in db.iteritems():
   try:
     if not basename in have:
       print('fetching %s into %s' % (pdf_url, fname))
-      req = urllib2.urlopen(pdf_url, None, timeout_secs)
+      req = urllib.request.urlopen(pdf_url, None, timeout_secs)
       with open(fname, 'wb') as fp:
           shutil.copyfileobj(req, fp)
       time.sleep(0.1 + random.uniform(0,0.2))
