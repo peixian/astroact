@@ -3,8 +3,7 @@ Reads txt files of all papers and computes tfidf vectors for all papers.
 Dumps results to file tfidf.p
 """
 from sklearn.feature_extraction.text import TfidfVectorizer
-import cPickle as pickle
-import urllib2
+import pickle
 import shutil
 import time
 import os
@@ -20,7 +19,7 @@ db = pickle.load(open('db.p', 'rb'))
 txts = []
 pids = []
 n=0
-for pid,j in db.iteritems():
+for pid,j in db.items():
   n+=1
   idvv = '%sv%d' % (j['_rawid'], j['_version'])
   fname = os.path.join('txt', idvv) + '.pdf.txt'
@@ -64,12 +63,12 @@ print( 'precomputing nearest neighbor queries in batches...')
 X = X.todense() # originally it's a sparse matrix
 sim_dict = {}
 batch_size = 200
-for i in xrange(0,len(pids),batch_size):
+for i in range(0,len(pids),batch_size):
   i1 = min(len(pids), i+batch_size)
   xquery = X[i:i1] # BxD
   ds = -np.asarray(np.dot(X, xquery.T)) #NxD * DxB => NxB
   IX = np.argsort(ds, axis=0) # NxB
-  for j in xrange(i1-i):
+  for j in range(i1-i):
     sim_dict[pids[i+j]] = [pids[q] for q in list(IX[:50,j])]
   print('%d/%d...' % (i, len(pids)))
 

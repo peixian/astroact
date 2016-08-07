@@ -6,7 +6,6 @@ script will not produce the output file.
 """
 
 import pickle
-import urllib2
 import shutil
 import time
 import os
