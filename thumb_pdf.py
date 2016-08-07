@@ -1,4 +1,4 @@
-# use imagemagick to convert 
+# use imagemagick to convert
 # them all to a sequence of thumbnail images
 # requires sudo apt-get install imagemagick
 
@@ -18,7 +18,7 @@ for i,p in enumerate(pdfs):
   fullpath = os.path.join(relpath, p)
   outpath = os.path.join('static', 'thumbs', p + '.jpg')
 
-  if os.path.isfile(outpath): 
+  if os.path.isfile(outpath):
     print('skipping %s, exists.' % (fullpath, ))
     continue
 
@@ -35,7 +35,7 @@ for i,p in enumerate(pdfs):
 
   # erase previous intermediate files test-*.png
   if os.path.isfile('tmp/test-0.png'):
-    for i in xrange(8):
+    for i in range(8):
       f = 'tmp/test-%d.png' % (i,)
       f2= 'tmp/testbuf-%d.png' % (i,)
       if os.path.isfile(f):

@@ -31,7 +31,7 @@ for pid,j in db.items():
       time.sleep(0.1 + random.uniform(0,0.2))
     else:
       print('%s exists, skipping' % (fname, ))
-    numok+=1
+    numok += 1
   except Exception as e:
     print('error downloading: ', pdf_url)
     print(e)
